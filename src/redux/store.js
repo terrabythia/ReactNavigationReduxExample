@@ -1,4 +1,14 @@
 import React from 'react'
-import { createStore } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import reducer from './reducers'
-export default createStore(reducer);
+import { createLogger } from 'redux-logger';
+
+const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__});
+
+const enhancer = compose(
+    applyMiddleware(
+        loggerMiddleware
+    )
+);
+
+export default createStore(reducer, {}, enhancer);

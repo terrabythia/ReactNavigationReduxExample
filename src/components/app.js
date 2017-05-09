@@ -1,8 +1,6 @@
 import {TabNavigator} from 'react-navigation';
 import HomeNavigator from './home-navigator';
-import Settings from './settings';
-
-import store from './../redux/store';
+import Settings from './../containers/settings';
 
 export default TabNavigator({
     Home: {

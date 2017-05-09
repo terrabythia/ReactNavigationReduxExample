@@ -1,39 +1,38 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {connect, Provider} from 'react-redux';
-import store from './../redux/store';
+import {View, Text, TextInput, Button} from 'react-native';
+import { addTodo } from './../redux/actions/todos';
 
-class Detail extends React.Component {
+export default class Detail extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: ''
+        };
+    }
+
+    _createTodo = () => {
+        this.props.dispatch(
+            addTodo(this.state.title)
+        );
+        this.props.navigation.goBack();
+    };
 
     render() {
 
-        console.log('render detail!', this.props);
-
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text>In details! {this.props.todos.length}</Text>
+            <View style={{flex: 1, alignItems: 'center', padding: 20}}>
+                <TextInput
+                    style={{height: 40}}
+                    placeholder="Give your todo a title"
+                    onChangeText={(title) => this.setState({title})}
+                />
+                <Button disabled={''===this.state.title}
+                        title="Create"
+                        onPress={this._createTodo} />
             </View>
         );
 
     }
 
 }
-
-// How to calculate props for <Home />
-// based on the current state of the store?
-const mapStateToProps = (state) => ({
-    todos: state.todos
-});
-
-Detail = connect(mapStateToProps)(Detail);
-
-export default class extends React.Component {
-
-    render() {
-        return <Provider store={store}>
-            <Detail {...this.props} />
-        </Provider>;
-    }
-
-}
-

@@ -1,6 +1,6 @@
 import {StackNavigator} from 'react-navigation';
-import Home from './home';
-import Detail from './detail';
+import Home from './../containers/home';
+import Detail from './../containers/detail';
 
 export default StackNavigator({
     Home: {
